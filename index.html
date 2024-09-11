@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://wavtokenizer.github.io/ -->
+<html lang="en-US">
+<script src="chrome-extension://jnlgamecbpmbajjfhmmmlhejkemejdma/static/js/inpage.js"></script>
+<script src="chrome-extension://dlcobpjiigpikoobohmabehhmhfoodbb/inpage.js" id="argent-x-extension"
+    data-extension-id="dlcobpjiigpikoobohmabehhmhfoodbb"></script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+    <title>MsCodec</title>
+    <meta name="generator" content="Jekyll v3.10.0">
+    <meta property="og:title"
+        content="WavTokenzier: An Efficient Acoustic Discrete Codec Tokenizer for Audio Language Modeling">
+    <meta property="og:locale" content="en_US">
+    <link rel="canonical" href="https://wavtokenizer.github.io/">
+    <meta property="og:url" content="https://wavtokenizer.github.io/">
+    <meta property="og:site_name"
+        content="WavTokenzier: An Efficient Acoustic Discrete Codec Tokenizer for Audio Language Modeling">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta property="twitter:title"
+        content="WavTokenzier: An Efficient Acoustic Discrete Codec Tokenizer for Audio Language Modeling">
+    <script type="application/ld+json">
+</script>
+    <!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1194.0" data-gr-ext-installed="">
+    <a id="skip-to-content" href="https://wavtokenizer.github.io/#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner">
+        <h1 class="project-name">Optimizing Neural Speech Codec for Low-Bitrate
+            Compression via Multi-Scale Encoding</h1>
+        <h2 class="project-tagline"></h2>
+
+    </header>
+
+    <main id="content" class="main-content" role="main">
+
+        <h2 id="overview">Abstract</h2>
+        <p align="justify">
+            Neural speech codecs have demonstrated their ability to compress high-quality speech and audio by converting
+            them into discrete token representations.
+
+            Most existing methods utilize Residual Vector Quantization (RVQ) to encode speech into multiple layers of
+            discrete codes with uniform time scales. However, this strategy overlooks the differences in information
+            density across various speech features, leading to redundant encoding of sparse information, which limits
+            the performance of these methods at low bitrate.
+
+            This paper proposes a novel multi-scale neural speech codec named MsCodec that encodes speech into multiple
+            layers of discrete codes, each with a distinct time scale. This encourages the model to decouple speech
+            features according to their diverse information densities, consequently enhancing the performance of speech
+            compression. Furthermore, we incorporate mutual information loss to augment the diversity among speech codes
+            across different layers.
+
+            Experimental results indicate that our proposed method significantly improves codec performance at low
+            bitrate.
+            <center>
+                <img src="./assets/architecture.jpg">
+            </center>
+        <p align="center">Figure.1 Architecture of MsCodec.</p>
+        </p>
+
+        <!-- <h2 id="performance-comparison">Samples of Various Codecs</h2> -->
+
+        <script>
+            function pauseOthers(ele) {
+                $("audio").not(ele).each(function (index, audio) { audio.pause(); });
+            }
+        </script>
+
+        <style>
+            .main-content table {
+                display: inline-table;
+            }
+
+            table {
+                table-layout: fixed;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            #player {
+                width: 100%;
+            }
+        </style>
+
+        <h2 id="generated-samples">Samples of Various Codecs</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th style="text-align: center;"> GT</th>
+                    <th style="text-align: center;"> EnCodec-4VQ <br> 3000bps</th>
+                    <th style="text-align: center;"> HiFiCodec-4VQ <br> 3000bps</th>
+                    <th style="text-align: center;"> TiCodec-4VQ <br> 3000bps</th>
+                    <th style="text-align: center;"> MsCodec-L <br> 2800bps(Ours)</th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/GT/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/Encodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/hificodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/ticodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/mimsticodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/GT/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/Encodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/hificodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/ticodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/mimsticodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/GT/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/Encodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/hificodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/ticodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/mimsticodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/GT/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/Encodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/hificodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/ticodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/mimsticodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/GT/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/Encodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/hificodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/ticodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/L/mimsticodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><br></p>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th style="text-align: center;"> GT</th>
+                    <th style="text-align: center;"> EnCodec-2VQ <br> 1500bps</th>
+                    <th style="text-align: center;"> HiFiCodec-2VQ <br> 1500bps</th>
+                    <th style="text-align: center;"> TiCodec-2VQ <br> 1500bps</th>
+                    <th style="text-align: center;"> MsCodec-M <br> 1400bps(Ours)</th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/GT/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/Encodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/hificodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/ticodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/mimsticodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/GT/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/Encodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/hificodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/ticodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/mimsticodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/GT/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/Encodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/hificodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/ticodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/mimsticodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/GT/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/Encodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/hificodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/ticodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/mimsticodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/GT/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/Encodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/hificodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/ticodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/M/mimsticodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+            </tbody>
+        </table>
+
+        <p><br></p>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th style="text-align: center;"> GT</th>
+                    <th style="text-align: center;"> EnCodec-1VQ <br> 750bps</th>
+                    <th style="text-align: center;"> HiFiCodec-1VQ <br> 750bps</th>
+                    <th style="text-align: center;"> TiCodec-1VQ <br> 750bps</th>
+                    <th style="text-align: center;"> MsCodec-S <br> 700bps(Ours)</th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/GT/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/Encodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/hificodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/ticodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/mimsticodec/1.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/GT/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/Encodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/hificodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/ticodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/mimsticodec/2.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/GT/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/Encodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/hificodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/ticodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/mimsticodec/3.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/GT/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/Encodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/hificodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/ticodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/mimsticodec/4.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+                <tr>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/GT/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/Encodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/hificodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/ticodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                    <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                            <source src="./demos/S/mimsticodec/5.wav" type="audio/mpeg">
+                        </audio> </th>
+                </tr>
+            </tbody>
+        </table>
+        <p><br></p>
+
+        <table>
+            <tbody>
+                <h2 id="ablation-study">Ablation Study</h2>
+                <th style="text-align: center;"> GT</th>
+                <th style="text-align: center;"> MsCodec-M <br> 1400bps</th>
+                <th style="text-align: center;"> w/o MI Loss <br> 1400bps</th>
+                <th style="text-align: center;"> w/o Multi-Scale <br> 1500bps</th>
+            </tbody>
+            <tr>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/GT/1.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/mscodec/1.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_miloss/1.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_mscale/1.wav" type="audio/mpeg">
+                    </audio> </th>
+            </tr>
+            <tr>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/GT/2.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/mscodec/2.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_miloss/2.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_mscale/2.wav" type="audio/mpeg">
+                    </audio> </th>
+            </tr>
+            <tr>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/GT/3.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/mscodec/3.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_miloss/3.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_mscale/3.wav" type="audio/mpeg">
+                    </audio> </th>
+            </tr>
+            <tr>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/GT/4.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/mscodec/4.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_miloss/4.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_mscale/4.wav" type="audio/mpeg">
+                    </audio> </th>
+            </tr>
+            <tr>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/GT/5.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/mscodec/5.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_miloss/5.wav" type="audio/mpeg">
+                    </audio> </th>
+                <th> <audio controls="" id="player" onplay="pauseOthers(this);">
+                        <source src="./demos/Ablation/wo_mscale/5.wav" type="audio/mpeg">
+                    </audio> </th>
+            </tr>
+        </table>
+
+        <footer class="site-footer">
+
+            <!-- ><span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span><!-->
+        </footer>
+    </main>
+
+</body>
+
+</html>
